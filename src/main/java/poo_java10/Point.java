@@ -1,20 +1,41 @@
 package poo_java10;
 
 public class Point {
-    private int x;
-    private int y;
+    private final static int INIT_X =
+            25;
+    private final static int INIT_Y =
+            25;
+    private final int x;
+    private final int y;
 
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public static void main(String[] args) {
-        Rond r = new Rond(new Point(3, 4), 5);
-        r.display();
+    public Point() {
+        this(INIT_X, INIT_Y);
+    }
 
-        Rectangle rect = new Rectangle(new Point(1, 2), 6, 3);
-        rect.display();
+
+    public static void main(String[] args) {
+        Rond r1 =
+                new Rond(new Point(3, 4), 5);
+        // r1.display();
+
+        Rectangle rect1 =
+                new Rectangle(new Point(1, 2), 6, 3);
+        // rect1.display();
+
+        Rond r2 =
+                FigureUtil.getRandomRond();
+        r2.display();
+
+        Rectangle rect2 =
+                FigureUtil.getRandomRectangle();
+        rect2.display();
+
+
     }
 
     @Override
@@ -26,15 +47,11 @@ public class Point {
         return this.x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
+
 
     public int getY() {
         return this.y;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
+
 }
