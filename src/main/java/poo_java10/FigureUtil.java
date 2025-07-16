@@ -31,5 +31,11 @@ public class FigureUtil {
 
     }
 
+    public static CarreHerite getRandomCarre() {
+        Point origin = getRandomPoint();
+        int cote = (int) (Math.random() * 100) + 1;
+        return  new CarreHerite(origin, cote);
+    }
+
 
 }

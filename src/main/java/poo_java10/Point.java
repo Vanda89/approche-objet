@@ -1,12 +1,13 @@
 package poo_java10;
 
-public class Point {
+public  class Point {
     private final static int INIT_X =
             25;
     private final static int INIT_Y =
             25;
     private final int x;
     private final int y;
+    private  String type;
 
     public Point(int x, int y) {
         this.x = x;
@@ -35,8 +36,17 @@ public class Point {
                 FigureUtil.getRandomRectangle();
         rect2.display();
 
-        Carre square = new Carre(new Point(3,4), 5);
+        //Carre square = new Carre(new Point(3,4), 5);
+        CarreHerite square = FigureUtil.getRandomCarre();
         square.display();
+
+       // CarreHerite squareHerit = new CarreHerite(new Point(3,4), 5);
+        CarreHerite squareHerit2 = FigureUtil.getRandomCarre();
+        squareHerit2.display();
+
+       // System.out.println("Type : " + getType());
+
+
 
 
     }
@@ -49,6 +59,9 @@ public class Point {
     public int getX() {
         return this.x;
     }
+
+    //public abstract String getType();
+
 
 
 

@@ -14,6 +14,9 @@ public class Rectangle {
         this.pointHG = new Point(pointBG.getX(), pointBG.getY() + width);
         this.pointHD = new Point(pointBG.getX() + length, pointBG.getY() + width);
     }
+    public String getType() {
+        return "RECT";
+    }
 
     public Point getPointBasGauche() {
         return this.pointBG;
