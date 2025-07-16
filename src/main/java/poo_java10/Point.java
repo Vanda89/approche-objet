@@ -35,6 +35,9 @@ public class Point {
                 FigureUtil.getRandomRectangle();
         rect2.display();
 
+        Carre square = new Carre(new Point(3,4), 5);
+        square.display();
+
 
     }
 

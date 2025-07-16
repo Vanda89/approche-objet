@@ -8,11 +8,11 @@ public class Rectangle {
 
 
     public Rectangle(Point origin,
-                     int longueur, int largeur) {
+                     int length, int width) {
         this.pointBG = origin;
-        this.pointBD = new Point(pointBG.getX() + longueur, pointBG.getY());
-        this.pointHG = new Point(pointBG.getX(), pointBG.getY() + largeur);
-        this.pointHD = new Point(pointBG.getX() + longueur, pointBG.getY() + largeur);
+        this.pointBD = new Point(pointBG.getX() + length, pointBG.getY());
+        this.pointHG = new Point(pointBG.getX(), pointBG.getY() + width);
+        this.pointHD = new Point(pointBG.getX() + length, pointBG.getY() + width);
     }
 
     public Point getPointBasGauche() {
