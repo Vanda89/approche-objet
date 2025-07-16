@@ -48,5 +48,12 @@ public class Rectangle {
         System.out.println(this);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return  true;
+        if(obj == null || !getClass().isAssignableFrom(obj.getClass())) return false;
+        Rectangle fig = (Rectangle) obj;
+        return getPointBasDroite().equals(fig.getPointBasDroite()) && getPointBasGauche().equals(fig.getPointBasGauche()) && getPointHautDroite().equals(fig.getPointHautDroite()) && getPointHautGauche().equals(fig.getPointHautGauche());
+    }
 
 }

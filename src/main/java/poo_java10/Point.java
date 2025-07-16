@@ -36,15 +36,15 @@ public  class Point {
                 FigureUtil.getRandomRectangle();
         rect2.display();
 
-        //Carre square = new Carre(new Point(3,4), 5);
         CarreHerite square = FigureUtil.getRandomCarre();
         square.display();
 
-       // CarreHerite squareHerit = new CarreHerite(new Point(3,4), 5);
         CarreHerite squareHerit2 = FigureUtil.getRandomCarre();
         squareHerit2.display();
 
        // System.out.println("Type : " + getType());
+
+        System.out.println();
 
 
 
@@ -67,6 +67,14 @@ public  class Point {
 
     public int getY() {
         return this.y;
+    }
+
+    public boolean equals(Object obj) {
+         //if (p != null) return true;
+        if (this == obj) return  true;
+        if(obj == null || !getClass().isAssignableFrom(obj.getClass())) return false;
+        Point p = (Point) obj;
+        return ((p.x == getX()) && (p.y == getY()));
     }
 
 

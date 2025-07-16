@@ -30,7 +30,13 @@ public class Carre extends Rectangle {
         return this.pointHD;
     }
 
-
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return  true;
+        if(obj == null || !getClass().isAssignableFrom(obj.getClass())) return false;
+        Carre fig = (Carre) obj;
+        return ((fig.cote == this.cote));
+    }
 
     @Override
     public String toString() { return "[CARRE ["
