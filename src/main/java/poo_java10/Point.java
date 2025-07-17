@@ -1,54 +1,29 @@
 package poo_java10;
 
-public  class Point {
+public class Point {
     private final static int INIT_X =
             25;
     private final static int INIT_Y =
             25;
     private final int x;
     private final int y;
-    private  String type;
+    private String type;
+
+    public Point() {
+        this(INIT_X, INIT_Y);
+    }
 
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public Point() {
-        this(INIT_X, INIT_Y);
+    public  int getX() {
+        return x;
     }
 
-
-    public static void main(String[] args) {
-        Rond r1 =
-                new Rond(new Point(3, 4), 5);
-        // r1.display();
-
-        Rectangle rect1 =
-                new Rectangle(new Point(1, 2), 6, 3);
-        // rect1.display();
-
-        Rond r2 =
-                FigureUtil.getRandomRond();
-        r2.display();
-
-        Rectangle rect2 =
-                FigureUtil.getRandomRectangle();
-        rect2.display();
-
-        CarreHerite square = FigureUtil.getRandomCarre();
-        square.display();
-
-        CarreHerite squareHerit2 = FigureUtil.getRandomCarre();
-        squareHerit2.display();
-
-       // System.out.println("Type : " + getType());
-
-        System.out.println();
-
-
-
-
+    public  int getY() {
+        return y;
     }
 
     @Override
@@ -56,23 +31,10 @@ public  class Point {
         return this.x + " " + this.y;
     }
 
-    public int getX() {
-        return this.x;
-    }
-
-    //public abstract String getType();
-
-
-
-
-    public int getY() {
-        return this.y;
-    }
-
+    @Override
     public boolean equals(Object obj) {
-         //if (p != null) return true;
-        if (this == obj) return  true;
-        if(obj == null || !getClass().isAssignableFrom(obj.getClass())) return false;
+        if (this == obj) return true;
+        if (obj == null || !getClass().isAssignableFrom(obj.getClass())) return false;
         Point p = (Point) obj;
         return ((p.x == getX()) && (p.y == getY()));
     }

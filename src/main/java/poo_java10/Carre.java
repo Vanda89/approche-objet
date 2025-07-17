@@ -1,21 +1,21 @@
 package poo_java10;
 
-public class Carre extends Rectangle {
+public class Carre extends Figure implements Surfacable {
     private int cote;
-    private Point pointBG;
     private Point pointBD;
     private Point pointHG;
     private Point pointHD;
+
     public Carre(Point origin, int cote) {
-        super(origin, cote, cote);
-    this.pointBG = origin;
-    this.pointBD = new Point(pointBG.getX() + cote, pointBG.getY());
-    this.pointHG = new Point(pointBG.getX(), pointBG.getY() + cote);
-    this.pointHD = new Point(pointBG.getX() + cote, pointBG.getY() + cote );
-    this.cote = cote;
+        super(origin);
+        this.pointBD = new Point(origin.getX() + cote, origin.getY());
+        this.pointHG = new Point(origin.getX(), origin.getY() + cote);
+        this.pointHD = new Point(origin.getX() + cote, origin.getY() + cote);
+        this.cote = cote;
     }
+
     public Point getPointBasGauche() {
-        return this.pointBG;
+        return super.origin;
     }
 
     public Point getPointBasDroite() {
@@ -32,24 +32,40 @@ public class Carre extends Rectangle {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return  true;
-        if(obj == null || !getClass().isAssignableFrom(obj.getClass())) return false;
-        Carre fig = (Carre) obj;
-        return ((fig.cote == this.cote));
+        if (this == obj) return true;
+        if (obj == null || (!getClass().isAssignableFrom(obj.getClass()) && !Rectangle.class.isAssignableFrom(obj.getClass())))
+            return false;
+        if (Rectangle.class.isAssignableFrom(obj.getClass())) {
+            Rectangle r = ((Rectangle) obj);
+            return r.getPointBasDroite().equals(pointBD) && r.origin.equals(super.origin)
+                    && r.getPointHautGauche().equals(pointHG) && r.getPointHautDroite().equals(pointHD);
+        } else {
+            Carre r = ((Carre) obj);
+            return r.pointBD.equals(pointBD) && r.origin.equals(super.origin)
+                    && r.pointHG.equals(pointHG) && r.pointHD.equals(pointHD);
+        }
+
+
     }
 
     @Override
-    public String toString() { return "[CARRE ["
-            + "[" + getPointBasGauche() + "] "
-            + "[" + getPointBasDroite() + "] "
-            + "[" + getPointHautGauche() + "] "
-            + "[" + getPointHautDroite() + "]"
-            + "]]";}
-    public void display() {
-        System.out.println(this);
+    public String getType() {
+        return "CARRE";
+    }
+
+    @Override
+    public String toString() {
+        return "[CARRE ["
+                + "[" + getPointBasGauche() + "] "
+                + "[" + getPointBasDroite() + "] "
+                + "[" + getPointHautGauche() + "] "
+                + "[" + getPointHautDroite() + "]"
+                + "]]";
     }
 
 
-
-
+    @Override
+    public double surface() {
+        return cote * cote;
+    }
 }

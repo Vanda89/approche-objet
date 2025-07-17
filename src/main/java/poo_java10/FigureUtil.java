@@ -1,41 +1,62 @@
 package poo_java10;
 
+import java.util.Random;
+
 public class FigureUtil {
     private static Point getRandomPoint() {
-        int x =
-                (int) (Math.random() * 100) + 1;
-        int y =
-                (int) (Math.random() * 100) + 1;
-
-        return new Point(x, y);
+        Random rand = new Random();
+        return new Point(rand.nextInt(100) + 1, rand.nextInt(100) + 1);
     }
 
     public static Rond getRandomRond() {
-        Point centre = getRandomPoint();
-        int rayon =
-                (int) (Math.random() * 50) + 1;
-
-        return new Rond(centre, rayon);
-
+        Random rand = new Random();
+        return new Rond(getRandomPoint(), rand.nextInt(100) + 1);
     }
 
     public static Rectangle getRandomRectangle() {
-        Point origin = getRandomPoint();
-        int length =
-                (int) (Math.random() * 100) + 1;
-        int width =
-            (int) (Math.random() * 100) + 1;
-
-        return new Rectangle(origin, length
-                ,width );
-
+        Random rand = new Random();
+        return new Rectangle(getRandomPoint(), rand.nextInt(100) + 1, rand.nextInt(100) + 1);
     }
 
-    public static CarreHerite getRandomCarre() {
-        Point origin = getRandomPoint();
-        int cote = (int) (Math.random() * 100) + 1;
-        return  new CarreHerite(origin, cote);
+    public static Carre getRandomCarre() {
+        Random rand = new Random();
+        return new Carre(getRandomPoint(), rand.nextInt(100) + 1);
     }
 
+    public static CarreHerite getRandomCarreHerite() {
+        Random rand = new Random();
+        return new CarreHerite(getRandomPoint(), rand.nextInt(100) + 1);
+    }
+
+    public static Segment getRandomSegment() {
+        Random rand = new Random();
+        return new Segment(getRandomPoint(),rand.nextInt(100) + 1, rand.nextBoolean());
+    }
+
+
+    public static Figure getRandomFigure() {
+        Random rand = new Random();
+        return switch (rand.nextInt(5)) {
+            case 0 -> getRandomCarre();
+            case 1 -> getRandomCarreHerite();
+            case 2 -> getRandomRectangle();
+            case 3 -> getRandomRond();
+            default -> getRandomSegment();
+        };
+    }
+
+
+
+
+    public static Figure getRandomSurfacable() {
+        Random rand = new Random();
+        return switch (rand.nextInt(4)) {
+            case 0 -> getRandomCarre();
+            case 1 -> getRandomCarreHerite();
+            case 2 -> getRandomRectangle();
+            default -> getRandomRond();
+        };
+    }
 
 }
+

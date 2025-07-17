@@ -1,25 +1,23 @@
 package poo_java10;
 
-public class Rectangle {
-    private Point pointBG;
+public class Rectangle extends Figure implements Surfacable {
     private Point pointBD;
     private Point pointHG;
     private Point pointHD;
 
-
     public Rectangle(Point origin,
                      int length, int width) {
-        this.pointBG = origin;
-        this.pointBD = new Point(pointBG.getX() + length, pointBG.getY());
-        this.pointHG = new Point(pointBG.getX(), pointBG.getY() + width);
-        this.pointHD = new Point(pointBG.getX() + length, pointBG.getY() + width);
+        super(origin);
+        this.pointBD = new Point(origin.getX() + length, origin.getY());
+        this.pointHG = new Point(origin.getX(), origin.getY() + width);
+        this.pointHD = new Point(origin.getX() + length, origin.getY() + width);
     }
     public String getType() {
         return "RECT";
     }
 
     public Point getPointBasGauche() {
-        return this.pointBG;
+        return this.origin;
     }
 
     public Point getPointBasDroite() {
@@ -44,9 +42,6 @@ public class Rectangle {
                 + "]]";
     }
 
-    public void display() {
-        System.out.println(this);
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -54,6 +49,10 @@ public class Rectangle {
         if(obj == null || !getClass().isAssignableFrom(obj.getClass())) return false;
         Rectangle fig = (Rectangle) obj;
         return getPointBasDroite().equals(fig.getPointBasDroite()) && getPointBasGauche().equals(fig.getPointBasGauche()) && getPointHautDroite().equals(fig.getPointHautDroite()) && getPointHautGauche().equals(fig.getPointHautGauche());
+    }
+    @Override
+    public double surface() {
+        return ( (getPointBasDroite().getX() + getPointBasGauche().getY() ) + (getPointBasDroite().getX() + getPointHautDroite().getY()) ) * 2;
     }
 
 }
