@@ -1,5 +1,8 @@
 package poo_java10;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Random;
 
 public class FigureUtil {
@@ -30,7 +33,7 @@ public class FigureUtil {
 
     public static Segment getRandomSegment() {
         Random rand = new Random();
-        return new Segment(getRandomPoint(),rand.nextInt(100) + 1, rand.nextBoolean());
+        return new Segment(getRandomPoint(), rand.nextInt(100) + 1, rand.nextBoolean());
     }
 
 
@@ -46,8 +49,6 @@ public class FigureUtil {
     }
 
 
-
-
     public static Figure getRandomSurfacable() {
         Random rand = new Random();
         return switch (rand.nextInt(4)) {
@@ -56,6 +57,26 @@ public class FigureUtil {
             case 2 -> getRandomRectangle();
             default -> getRandomRond();
         };
+    }
+
+
+    public static Collection<Point> getPoints(Collection<Figure> figures) {
+        HashSet<Point> points = new HashSet<>();
+
+        for (Figure figure : figures) {
+            points.addAll(figure.getPoints());
+        }
+        return points;
+    }
+
+    public static Collection<Figure> genere(int nbFigures) {
+        Collection<Figure> figures = new HashSet<>(nbFigures);
+
+        for (int i = 0; i < nbFigures; i++) {
+            Figure fig = getRandomFigure();
+            figures.add(fig);
+        }
+        return figures;
     }
 
 }

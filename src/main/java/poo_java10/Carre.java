@@ -1,5 +1,9 @@
 package poo_java10;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 public class Carre extends Figure implements Surfacable {
     private int cote;
     private Point pointBD;
@@ -51,6 +55,12 @@ public class Carre extends Figure implements Surfacable {
     @Override
     public String getType() {
         return "CARRE";
+    }
+
+
+    @Override
+    public Set<Point> getPoints() {
+        return (Set.of(getPointBasGauche(), getPointBasDroite(), getPointHautDroite(), getPointHautGauche()));
     }
 
     @Override

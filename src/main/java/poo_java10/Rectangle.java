@@ -1,5 +1,9 @@
 package poo_java10;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 public class Rectangle extends Figure implements Surfacable {
     private Point pointBD;
     private Point pointHG;
@@ -30,6 +34,11 @@ public class Rectangle extends Figure implements Surfacable {
 
     public Point getPointHautDroite() {
         return this.pointHD;
+    }
+
+    @Override
+    public Set<Point> getPoints() {
+        return (Set.of(getPointBasGauche(), getPointBasDroite(), getPointHautDroite(), getPointHautGauche()));
     }
 
     @Override

@@ -1,5 +1,9 @@
 package poo_java10;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+
 public class Main {
     public static void main(String[] args) {
         Point p = new Point(50, 50);
@@ -39,6 +43,14 @@ public class Main {
             System.out.println("Surface = " + s.surface() + " pour " + s);
         }
 
+
+        Figure[] figures = new Figure[10];
+        for (int i = 0; i < 10; i++) {
+            figures[i] = FigureUtil.getRandomFigure();
+        }
+
+        Collection<Figure> figuresGenerated = FigureUtil.genere(10);
+        System.out.println(figuresGenerated);
 
     }
 }

@@ -1,5 +1,9 @@
 package poo_java10;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 public class Segment extends Figure {
     private Point pointRight;
 
@@ -12,6 +16,11 @@ public class Segment extends Figure {
     @Override
     public String getType() {
         return "SEGMENT";
+    }
+
+    @Override
+    public Set<Point> getPoints() {
+        return (Set.of(getPointLeft(), getPointRight()));
     }
 
     public Point getPointLeft() {
