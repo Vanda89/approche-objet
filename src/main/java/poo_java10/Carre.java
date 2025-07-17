@@ -1,7 +1,5 @@
 package poo_java10;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 public class Carre extends Figure implements Surfacable {
@@ -61,6 +59,13 @@ public class Carre extends Figure implements Surfacable {
     @Override
     public Set<Point> getPoints() {
         return (Set.of(getPointBasGauche(), getPointBasDroite(), getPointHautDroite(), getPointHautGauche()));
+    }
+
+    @Override
+    public boolean couvre(Point p) {
+        return p.getX() >= getPointBasGauche().getX() && p.getX() <= getPointHautDroite().getX()
+                && p.getY() >= getPointHautGauche().getY() && p.getY() <= getPointBasDroite().getY();
+
     }
 
     @Override

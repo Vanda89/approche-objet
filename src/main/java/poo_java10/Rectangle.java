@@ -42,6 +42,13 @@ public class Rectangle extends Figure implements Surfacable {
     }
 
     @Override
+    public boolean couvre(Point p) {
+        return p.getX() >= getPointBasGauche().getX() && p.getX() <= getPointHautDroite().getX()
+                && p.getY() >= getPointHautGauche().getY() && p.getY() <= getPointBasDroite().getY();
+
+    }
+
+    @Override
     public String toString() {
         return "[RECT ["
                 + "[" + getPointBasGauche() + "] "
@@ -50,7 +57,6 @@ public class Rectangle extends Figure implements Surfacable {
                 + "[" + getPointHautDroite() + "]"
                 + "]]";
     }
-
 
     @Override
     public boolean equals(Object obj) {

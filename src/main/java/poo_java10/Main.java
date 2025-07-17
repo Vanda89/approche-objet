@@ -52,5 +52,12 @@ public class Main {
         Collection<Figure> figuresGenerated = FigureUtil.genere(10);
         System.out.println(figuresGenerated);
 
+        Point p1 = new Point(15, 15);
+        Point p2 = new Point(28, 32);
+        Dessin d = new Dessin();
+        d.add(new Carre((new Point(20, 40)), 10));
+        System.out.println(FigureUtil.getFigureInto(p1, d ));
+
+
     }
 }

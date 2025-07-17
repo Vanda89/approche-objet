@@ -35,6 +35,12 @@ public class Rond extends Figure implements Surfacable {
     }
 
     @Override
+    public boolean couvre(Point p) {
+       return Point.getDistance(origin, p) <= rayon;
+
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) return  true;
         if(obj == null || !getClass().isAssignableFrom(obj.getClass())) return false;

@@ -16,6 +16,8 @@ public abstract class Figure  {
     // Passé de Array a List
     public abstract Collection<Point> getPoints();
 
+    public abstract boolean couvre(Point p);
+
     @Override
     public abstract String toString();
 

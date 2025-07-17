@@ -31,7 +31,19 @@ public class Segment extends Figure {
         return this.pointRight;
     }
 
+    @Override
+    public boolean couvre(Point p) {
+        int xMin = Math.min(getPointLeft().getX(), getPointRight().getX());
+        int xMax = Math.max(getPointLeft().getX(), getPointRight().getX());
+        int yMin = Math.min(getPointLeft().getY(), getPointRight().getY());
+        int yMax = Math.max(getPointLeft().getY(), getPointRight().getY());
 
+
+        return p.getX() >= xMin
+                && p.getX() >= xMax
+                && p.getY() <= yMin
+                && p.getY() <= yMax;
+    }
 
     @Override
     public String toString() {

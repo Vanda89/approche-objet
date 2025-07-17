@@ -1,9 +1,6 @@
 package poo_java10;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Random;
+import java.util.*;
 
 public class FigureUtil {
     private static Point getRandomPoint() {
@@ -78,6 +75,16 @@ public class FigureUtil {
         }
         return figures;
     }
+
+    public static Figure getFigureInto(Point p, Dessin d) {
+        Iterator<Figure> iterator = d.getFigures().iterator();
+        while (iterator.hasNext()) {
+            Figure f = iterator.next();
+            return f;
+        }
+        return null;
+    }
+
 
 }
 
