@@ -16,6 +16,8 @@ public class Rectangle extends Figure implements Surfacable {
         this.pointHG = new Point(origin.getX(), origin.getY() + width);
         this.pointHD = new Point(origin.getX() + length, origin.getY() + width);
     }
+
+
     public String getType() {
         return "RECT";
     }
@@ -65,9 +67,12 @@ public class Rectangle extends Figure implements Surfacable {
         Rectangle fig = (Rectangle) obj;
         return getPointBasDroite().equals(fig.getPointBasDroite()) && getPointBasGauche().equals(fig.getPointBasGauche()) && getPointHautDroite().equals(fig.getPointHautDroite()) && getPointHautGauche().equals(fig.getPointHautGauche());
     }
+
+
+
+
     @Override
     public double surface() {
         return ( (getPointBasDroite().getX() + getPointBasGauche().getY() ) + (getPointBasDroite().getX() + getPointHautDroite().getY()) ) * 2;
     }
-
 }

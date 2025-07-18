@@ -1,14 +1,12 @@
 package poo_java10;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 public class Rond extends Figure implements Surfacable {
     private final int rayon;
 
     public Rond(Point origin,
-                int rayon) {
+                int rayon)  {
         super(origin);
         this.rayon = rayon;
 
@@ -48,8 +46,11 @@ public class Rond extends Figure implements Surfacable {
         return getCentre().equals(fig.origin);
     }
 
+
     @Override
     public double surface() {
         return (rayon * rayon) * Math.PI;
     }
+
+
 }

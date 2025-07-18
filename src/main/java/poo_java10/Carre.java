@@ -46,9 +46,9 @@ public class Carre extends Figure implements Surfacable {
             return r.pointBD.equals(pointBD) && r.origin.equals(super.origin)
                     && r.pointHG.equals(pointHG) && r.pointHD.equals(pointHD);
         }
-
-
     }
+
+
 
     @Override
     public String getType() {
@@ -83,4 +83,6 @@ public class Carre extends Figure implements Surfacable {
     public double surface() {
         return cote * cote;
     }
+
+
 }

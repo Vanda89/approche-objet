@@ -3,6 +3,8 @@ package poo_java10;
 import java.util.*;
 
 public class FigureUtil {
+    private final static Map<String, Figure> figures = new TreeMap<>();
+
     private static Point getRandomPoint() {
         Random rand = new Random();
         return new Point(rand.nextInt(100) + 1, rand.nextInt(100) + 1);
@@ -66,7 +68,7 @@ public class FigureUtil {
         return points;
     }
 
-    public static Collection<Figure> genere(int nbFigures) {
+    public static Collection<Figure> genered(int nbFigures)  {
         Collection<Figure> figures = new HashSet<>(nbFigures);
 
         for (int i = 0; i < nbFigures; i++) {
@@ -78,11 +80,50 @@ public class FigureUtil {
 
     public static Figure getFigureInto(Point p, Dessin d) {
         Iterator<Figure> iterator = d.getFigures().iterator();
+
         while (iterator.hasNext()) {
             Figure f = iterator.next();
             return f;
         }
         return null;
+    }
+
+    public static Collection<Figure> sortByNearOrigin(Dessin d) {
+        return new TreeSet<>(d.getFigures());
+    }
+
+    public static ArrayList<Surfacable> sortDesc(Dessin d) {
+        ArrayList<Surfacable> list = new ArrayList<>();
+
+        for (Figure figure : d.getFigures()) {
+            if (Surfacable.class.isAssignableFrom(figure.getClass())) {
+                list.add((Surfacable) figure);
+            }
+
+        }
+        list.sort(new Comparator<Surfacable>() {
+            @Override
+            public int compare(Surfacable o1, Surfacable o2) {
+                if (o1.surface() > o2.surface()) {
+                    return -1;
+                } else if (o1.surface() < o2.surface()) {
+                    return 1;
+                }
+                return 0;
+            }
+        });
+        return list;
+    }
+
+    public static Figure getRandomSpecificFig(String id) {
+        Figure randFig = getRandomFigure();
+        figures.put(id, randFig);
+        return randFig;
+    }
+
+
+    public static Figure get(String key) {
+        return figures.get(key);
     }
 
 

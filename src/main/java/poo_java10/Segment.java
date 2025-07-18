@@ -1,16 +1,14 @@
 package poo_java10;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Set;
 
 public class Segment extends Figure {
-    private Point pointRight;
+    private final Point pointRight;
 
     public Segment(Point origin, int length, boolean isSurfacable) {
         super(origin);
-        this.pointRight =  new Point(origin.getX() + (isSurfacable ? length : 0), origin.getY() + (isSurfacable ? 0 : length));
-
+        this.pointRight = new Point(origin.getX() + (isSurfacable ? length : 0), origin.getY() + (isSurfacable ? 0 : length));
     }
 
     @Override
@@ -55,6 +53,7 @@ public class Segment extends Figure {
         if (this == obj) return true;
         if (obj == null || !getClass().isAssignableFrom(obj.getClass())) return false;
         Segment seg = (Segment) obj;
-        return ((this.origin == seg.origin) && (this.pointRight == seg.pointRight));
+        return this.origin.equals(seg.origin) && this.pointRight.equals(seg.pointRight);
     }
+
 }

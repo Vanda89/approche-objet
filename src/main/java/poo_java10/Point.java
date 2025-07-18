@@ -1,19 +1,23 @@
 package poo_java10;
 
 public class Point {
-    private final static int INIT_X =
+    final static int INIT_X =
             25;
-    private final static int INIT_Y =
+    final static int INIT_Y =
             25;
     private final int x;
     private final int y;
     private String type;
 
-    public Point() {
+    public Point()   {
         this(INIT_X, INIT_Y);
     }
 
-    public Point(int x, int y) {
+    public Point(int x, int y)  {
+        if((x<0) || (y<0)|| x > 99 || y> 99) {
+            System.out.println("exception !");
+            throw new DessinHorsLimite("!!!");
+        }
         this.x = x;
         this.y = y;
     }
@@ -32,6 +36,10 @@ public class Point {
         return Math.sqrt((difX * difX) + (difY * difY));
     }
 
+     public double distance(Point p ) {
+        return getDistance(this, p);
+    }
+
     @Override
     public String toString() {
         return this.x + " " + this.y;
@@ -47,3 +55,5 @@ public class Point {
 
 
 }
+
+
