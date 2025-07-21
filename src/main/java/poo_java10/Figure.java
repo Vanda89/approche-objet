@@ -35,27 +35,15 @@ public abstract class Figure implements Comparable<Figure>
     @Override
     public abstract boolean equals(Object obj);
 
-   @Override
+    @Override
     public int compareTo(Figure figure) {
-       double d1 = 0;
-       try {
-           d1 = this.distanceOrigin();
-       } catch (Exception e) {
-           System.out.println("X est en dehors de la limite fixé [0:99]");
-           throw new RuntimeException(e);
-       }
-       double d2 = 0;
-       try {
-           d2 = figure.distanceOrigin();
-       } catch (Exception e) {
-           System.out.println("Y est en dehors de la limite fixé [0:99]");
-           throw new RuntimeException(e);
-       }
-       if (d1 < d2) {
-           return -1;
-       } else if (d1 > d2) {
-           return 1;
-       }
-       return 0;
-   }
+        double d1 = distanceOrigin();
+        double d2 = figure.distanceOrigin();
+        if (d1 < d2) {
+            return -1;
+        } else if (d1 > d2) {
+            return 1;
+        }
+        return 0;
+    }
 }

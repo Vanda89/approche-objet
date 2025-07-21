@@ -32,11 +32,6 @@ public class Rond extends Figure implements Surfacable {
         return (Set.of(getCentre()));
     }
 
-    @Override
-    public boolean couvre(Point p) {
-       return Point.getDistance(origin, p) <= rayon;
-
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -52,5 +47,10 @@ public class Rond extends Figure implements Surfacable {
         return (rayon * rayon) * Math.PI;
     }
 
-
+    @Override
+    public boolean couvre(Point p) {
+        int difX = Math.abs(p.getX() - origin.getX());
+        int difY = Math.abs(p.getY() - origin.getY());
+        return (Math.abs(Math.sqrt((difX*difX) + (difY*difY))) <= rayon);
+    }
 }

@@ -16,7 +16,7 @@ public class Point {
     public Point(int x, int y)  {
         if((x<0) || (y<0)|| x > 99 || y> 99) {
             System.out.println("exception !");
-            throw new DessinHorsLimite("!!!");
+            throw new DessinHorsLimiteException("!!!");
         }
         this.x = x;
         this.y = y;

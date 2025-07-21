@@ -10,7 +10,7 @@ public class Rectangle extends Figure implements Surfacable {
     private Point pointHD;
 
     public Rectangle(Point origin,
-                     int length, int width) {
+                     int length, int width) throws DessinHorsLimiteException  {
         super(origin);
         this.pointBD = new Point(origin.getX() + length, origin.getY());
         this.pointHG = new Point(origin.getX(), origin.getY() + width);

@@ -4,11 +4,27 @@ package poo_java10;
 import java.util.Set;
 
 public class Segment extends Figure {
-    private final Point pointRight;
+    private final Point finalPoint;
 
-    public Segment(Point origin, int length, boolean isSurfacable) {
+    public Segment(Point origin, int longueur, boolean horizontal) throws DessinHorsLimiteException {
         super(origin);
-        this.pointRight = new Point(origin.getX() + (isSurfacable ? length : 0), origin.getY() + (isSurfacable ? 0 : length));
+        finalPoint = new Point(origin.getX() + (horizontal ? longueur : 0),
+                origin.getY() + (horizontal ? 0 : longueur));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || (!getClass().isAssignableFrom(o.getClass()) && !o.getClass().isAssignableFrom(getClass())))
+            return false;
+        Segment s = ((Segment) o);
+        return s.origin.equals(origin) && s.finalPoint.equals(finalPoint);
+    }
+
+    @Override
+    public String toString() {
+        return "Segment [origin=" + origin + ", finalPoint=" + finalPoint +
+                "]";
     }
 
     @Override
@@ -18,42 +34,12 @@ public class Segment extends Figure {
 
     @Override
     public Set<Point> getPoints() {
-        return (Set.of(getPointLeft(), getPointRight()));
-    }
-
-    public Point getPointLeft() {
-        return this.origin;
-    }
-
-    public Point getPointRight() {
-        return this.pointRight;
+        return Set.of(origin, finalPoint);
     }
 
     @Override
     public boolean couvre(Point p) {
-        int xMin = Math.min(getPointLeft().getX(), getPointRight().getX());
-        int xMax = Math.max(getPointLeft().getX(), getPointRight().getX());
-        int yMin = Math.min(getPointLeft().getY(), getPointRight().getY());
-        int yMax = Math.max(getPointLeft().getY(), getPointRight().getY());
-
-
-        return p.getX() >= xMin
-                && p.getX() >= xMax
-                && p.getY() <= yMin
-                && p.getY() <= yMax;
+        return p.getX() >= origin.getX() && p.getX() <= finalPoint.getX()
+                && p.getY() >= origin.getY() && p.getY() <= finalPoint.getY();
     }
-
-    @Override
-    public String toString() {
-        return "[" + getType() + " [" + getPointLeft() + " to " + getPointRight() + "]]";
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || !getClass().isAssignableFrom(obj.getClass())) return false;
-        Segment seg = (Segment) obj;
-        return this.origin.equals(seg.origin) && this.pointRight.equals(seg.pointRight);
-    }
-
 }

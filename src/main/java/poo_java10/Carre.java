@@ -8,7 +8,7 @@ public class Carre extends Figure implements Surfacable {
     private Point pointHG;
     private Point pointHD;
 
-    public Carre(Point origin, int cote) {
+    public Carre(Point origin, int cote) throws DessinHorsLimiteException  {
         super(origin);
         this.pointBD = new Point(origin.getX() + cote, origin.getY());
         this.pointHG = new Point(origin.getX(), origin.getY() + cote);
