@@ -1,5 +1,6 @@
 package poo_java10;
 
+import java.io.*;
 import java.util.*;
 
 public class FigureUtil {
@@ -10,22 +11,28 @@ public class FigureUtil {
         return new Point(rand.nextInt(98), rand.nextInt(98));
     }
 
+    public static Couleur getRandomCouleur() {
+        Random rand = new Random();
+        Couleur[] couleurs = Couleur.values();
+        return couleurs[rand.nextInt(couleurs.length)];
+    }
+
     public static Rond getRandomRond() throws DessinHorsLimiteException {
         Random rand = new Random();
         Point p = getRandomPoint();
-        return new Rond(p, rand.nextInt(100 - Math.max(p.getX(), p.getY())));
+        return new Rond(p, rand.nextInt(100 - Math.max(p.getX(), p.getY())), getRandomCouleur());
     }
 
     public static Rectangle getRandomRectangle() throws DessinHorsLimiteException {
         Random rand = new Random();
         Point p = getRandomPoint();
-        return new Rectangle(p, rand.nextInt(100 - p.getX()), rand.nextInt(100 - p.getY()));
+        return new Rectangle(p, rand.nextInt(100 - p.getX()), rand.nextInt(100 - p.getY()), getRandomCouleur());
     }
 
     public static Carre getRandomCarre() throws DessinHorsLimiteException {
         Random rand = new Random();
         Point p = getRandomPoint();
-        return new Carre(p, rand.nextInt(100 - Math.max(p.getX(), p.getY())));
+        return new Carre(p, rand.nextInt(100 - Math.max(p.getX(), p.getY())), getRandomCouleur());
     }
 
     public static CarreHerited getRandomCarreHerite() throws DessinHorsLimiteException {
@@ -38,7 +45,8 @@ public class FigureUtil {
         Random rand = new Random();
         Point p = getRandomPoint();
         boolean h = rand.nextBoolean();
-        return new Segment(p, (h ?  rand.nextInt(100 - p.getX()) : rand.nextInt(100 - p.getY())), h);
+        return new Segment(p, (h ? rand.nextInt(100 - p.getX()) :
+                rand.nextInt(100 - p.getY())), h, getRandomCouleur());
     }
 
     public static Figure getRandomFigure() throws DessinHorsLimiteException {
@@ -104,9 +112,6 @@ public class FigureUtil {
     }
 
     public static Collection<Figure> trieProcheOrigine(Dessin d) {
-//        ArrayList<Figure> list = new ArrayList<>(d.getFigures());
-//        Collections.sort(list);
-//        return list;
         return new TreeSet<>(d.getFigures());
     }
 
@@ -117,16 +122,13 @@ public class FigureUtil {
                 list.add((Surfacable) figure);
             }
         }
-        list.sort(new Comparator<>() {
-            @Override
-            public int compare(Surfacable o1, Surfacable o2) {
-                if (o1.surface() > o2.surface()) {
-                    return -1;
-                } else if (o1.surface() < o2.surface()) {
-                    return 1;
-                }
-                return 0;
+        list.sort((o1, o2) -> {
+            if (o1.surface() > o2.surface()) {
+                return -1;
+            } else if (o1.surface() < o2.surface()) {
+                return 1;
             }
+            return 0;
         });
         return list;
     }
@@ -146,5 +148,91 @@ public class FigureUtil {
         }
         return figures.get(key);
     }
+
+    public static void save(Dessin d, String fileName) throws IOException {
+        PrintWriter drawingOutput = new PrintWriter(new FileWriter(fileName));
+
+        // On récupère, on vérifie le type d'instance et on printf les infos
+        for (Figure f : d.getFigures()) {
+            if (f instanceof Rond) {
+                Rond r = (Rond) f;
+                int x = r.getCentre().getX();
+                int y = r.getCentre().getY();
+                int rayon = r.getRayon();
+                String couleur = String.valueOf(r.getCouleur());
+                // d=decimal, s = string, n=saut de ligne
+                drawingOutput.printf("Rond x=%d y=%d rayon=%d couleur=%s%n", x, y, rayon, couleur);
+
+            } else if (f instanceof Carre) {
+                Carre c = (Carre) f;
+                int x = c.getPointBasGauche().getX();
+                int y = c.getPointBasGauche().getY();
+                int cote = c.getCote();
+                String couleur = String.valueOf(c.getCouleur());
+                drawingOutput.printf("Carre x=%d y=%d cote=%d couleur=%s%n",
+                        x, y, cote, couleur);
+
+
+            } else if (f instanceof Rectangle) {
+                Rectangle rect = (Rectangle) f;
+                int x = rect.getPointBasGauche().getX();
+                int y = rect.getPointBasGauche().getY();
+                int length = rect.getLength();
+                int height = rect.getHeight();
+                String couleur = String.valueOf(rect.getCouleur());
+                drawingOutput.printf("Rectangle x=%d y=%d length=%d height=%d couleur=%s%n", x, y, length, height, couleur);
+            }
+        }
+        // On vide le tampon et on ferme
+        drawingOutput.flush();
+        drawingOutput.close();
+
+    }
+
+    public static Dessin load(String fileName) throws IOException {
+        BufferedReader drawingReader = new BufferedReader(new FileReader(fileName));
+        Dessin d = new Dessin();
+        String line;
+
+        while ((line = drawingReader.readLine()) != null) {
+            // On découpe la ligne en parties à chaque espace après avoir
+            String[] parts = line.trim().split(" ");
+            // On stocke le type de figure pour faire les vérifications
+            // d'instance en ignorant la casse
+            String type = parts[0];
+
+            if (type.equalsIgnoreCase("rond")) {
+                int x = Integer.parseInt(parts[1].split("=")[1]);
+                int y = Integer.parseInt(parts[2].split("=")[1]);
+                int rayon = Integer.parseInt(parts[3].split("=")[1]);
+                Couleur couleur = Couleur.valueOf(parts[4].split("=")[1]);
+                Rond r = new Rond(new Point(x, y), rayon, couleur);
+                d.add(r);
+
+            } else if (type.equalsIgnoreCase("carre")) {
+                int x = Integer.parseInt(parts[1].split("=")[1]);
+                int y = Integer.parseInt(parts[2].split("=")[1]);
+                int cote = Integer.parseInt(parts[3].split("=")[1]);
+                Couleur couleur = Couleur.valueOf(parts[4].split("=")[1]);
+                Carre c = new Carre(new Point(x, y), cote, couleur);
+                d.add(c);
+
+            } else if (type.equalsIgnoreCase("rectangle")) {
+                int x = Integer.parseInt(parts[1].split("=")[1]);
+                int y = Integer.parseInt(parts[2].split("=")[1]);
+                int length = Integer.parseInt(parts[3].split("=")[1]);
+                int height = Integer.parseInt(parts[4].split("=")[1]);
+                Couleur couleur = Couleur.valueOf(parts[5].split("=")[1]);
+                Rectangle rect = new Rectangle(new Point(x, y), length, height, couleur);
+                d.add(rect);
+            }
+        }
+
+        drawingReader.close();
+        return d;
+    }
+
+
 }
+
 

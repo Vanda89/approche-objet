@@ -1,0 +1,3 @@
+Carre x=9 y=4 cote=10 couleur=JAUNE
+Rond x=6 y=3 rayon=7 couleur=VERT
+Rectangle x=5 y=8 length=6 height=4 couleur=BLEU

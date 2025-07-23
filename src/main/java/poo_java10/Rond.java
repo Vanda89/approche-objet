@@ -6,8 +6,14 @@ public class Rond extends Figure implements Surfacable {
     private final int rayon;
 
     public Rond(Point origin,
-                int rayon)  {
-        super(origin);
+                int rayon )  {
+        this(origin, rayon, Couleur.getCouleurDefault());
+
+    }
+
+    public Rond(Point origin,
+                int rayon, Couleur couleur )  {
+        super(origin, couleur);
         this.rayon = rayon;
 
     }
@@ -19,12 +25,14 @@ public class Rond extends Figure implements Surfacable {
 
     @Override
     public String toString() {
-        return "[ROND " + '[' + '['+ origin + ']' + ' ' + this.rayon + "]]";
+        return "[" + getType() + "[" + '['+ origin + ']' + ' ' + this.rayon +
+                ", couleur = " + getCouleur() + "]]";
     }
 
     public Point getCentre() {
         return origin;
     }
+    public int getRayon() {return this.rayon;}
 
 
     @Override
@@ -32,13 +40,27 @@ public class Rond extends Figure implements Surfacable {
         return (Set.of(getCentre()));
     }
 
+    @Override
+    public String getFigureString() {
+        return String.format("Rond x=%d y=%d rayon=%d couleur=%s",
+                getCentre().getX(), getCentre().getY(), getRayon(), getCouleur());
+    }
+
+    public static Rond getInstance(String line) {
+        String[] parts = line.split(" ");
+        int x = Integer.parseInt(parts[1].split("=")[1]);
+        int y = Integer.parseInt(parts[2].split("=")[1]);
+        int rayon = Integer.parseInt(parts[3].split("=")[1]);
+        Couleur couleur = Couleur.valueOf(parts[4].split("=")[1]);
+        return new Rond(new Point(x, y), rayon, couleur);
+    }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return  true;
-        if(obj == null || !getClass().isAssignableFrom(obj.getClass())) return false;
+        if (!super.equals(obj)) return false;
+        if(!getClass().isAssignableFrom(obj.getClass()) && !obj.getClass().isAssignableFrom(getClass()) ) return false;
         Rond fig = (Rond) obj;
-        return getCentre().equals(fig.origin);
+        return this.getRayon() == fig.getRayon();
     }
 
 

@@ -7,9 +7,15 @@ import java.util.HashSet;
 public abstract class Figure implements Comparable<Figure>
 {
     protected final Point origin;
+    private Couleur couleur;
 
-    public Figure( Point origin)  {
-        this.origin = new Point();
+    public Figure( Point origin, Couleur couleur)  {
+        this.origin = origin;
+        this.couleur = couleur;
+    }
+
+    public Couleur getCouleur() {
+        return this.couleur;
     }
 
     public abstract String getType();
@@ -17,10 +23,30 @@ public abstract class Figure implements Comparable<Figure>
     // Passé de Array a List
     public abstract Collection<Point> getPoints();
 
+    public abstract String getFigureString();
+
+    public static Figure getInstance(String line) {
+        String[] parts = line.split(" ");
+        String type = parts[0];
+
+        switch (type.toLowerCase()) {
+            case "rond":
+                return Rond.getInstance(line);
+            case "carre":
+                return Carre.getInstance(line);
+            case "rectangle":
+                return Rectangle.getInstance(line);
+            default:
+                throw new IllegalArgumentException("Type de figure inconnu : " + type);
+        }
+    }
+
     public abstract boolean couvre(Point p);
 
     @Override
-    public abstract String toString();
+    public  String toString() {
+        return getType() + ' ' + this.couleur;
+    };
 
     public void display() {
         System.out.println(this);
@@ -33,7 +59,12 @@ public abstract class Figure implements Comparable<Figure>
     }
 
     @Override
-    public abstract boolean equals(Object obj);
+    public  boolean equals(Object obj){
+        if (this == obj) return true;
+        if(!(obj instanceof Figure)) return false;
+        return this.origin.equals(((Figure) obj).origin)
+                && this.couleur.equals(((Figure) obj).couleur);    }
+
 
     @Override
     public int compareTo(Figure figure) {
@@ -46,4 +77,6 @@ public abstract class Figure implements Comparable<Figure>
         }
         return 0;
     }
+
+
 }
